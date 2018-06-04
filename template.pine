@@ -1,0 +1,3 @@
+//@version=3
+// @author Jaqobs
+// Moving averages based on VWMA and Bitmex's leverage liquidation multipliers

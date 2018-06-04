@@ -1,0 +1,23 @@
+//@version=3
+// @author Jaqobs
+// Moving averages based on VWMA and Bitmex's leverage liquidation multipliers
+
+study("Simple AEE Areas", overlay=true)
+
+// === Input ===
+// ALMA, EMA settings
+alma_inp = input(defval=300, title="ALMA length", type=integer)
+ema1_inp = input(defval=9, title="Ema1 length", type=integer)
+ema2_inp = input(defval=30, title="Ema2 length", type=integer)
+// === Indicators ===
+// ALMA
+alma = alma(close, alma_inp, 0.85, 6)
+p1 = plot(alma, title="ALMA", color=#FF7260, linewidth=1)
+// EMA
+emaA = ema(close, ema1_inp)
+p2 = plot(emaA, title="EMA", color=#129793, linewidth=1)
+emaB = ema(close, ema2_inp)
+p3 = plot(emaB, title="EMA", color=#9BD7D5, linewidth=1)
+//=== visualization ===
+fill(p1, p2, title="Area 1",color = emaA > alma ? green : red)
+fill(p3, p1, title="Area 2",color = yellow)
