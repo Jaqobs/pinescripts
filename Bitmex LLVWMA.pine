@@ -13,45 +13,39 @@ study("Bitmex LLVWMA", overlay=true)
 //h4: len = 7
 //h12: len = 3
 
-// ===Input===
+//===Input===
 len_inp = input(defval=50, title="Length", type=integer)
 offset_inp = input(defval=0, title="Offset", type= integer)
-highlightTouch50=input(true, title="Highlight touch of x50 leverage lines?", type=bool)
-highlightTouch25=input(true, title="Highlight touch of x25 leverage lines?", type=bool)
+highlightTouch50=input(false, title="Highlight touch of x50 leverage lines?", type=bool)
+highlightTouch25=input(false, title="Highlight touch of x25 leverage lines?", type=bool)
 highlightTouch10=input(true, title="Highlight touch of x10 leverage lines?", type=bool)
 
-// ===MA's===
+//===Indicator===
 vwma = vwma(close, len_inp)
-plot(vwma, title="Midline", style=circles)
-
 long10 = vwma(close, len_inp) * 0.913294
-plot(long10, color=#ff0000, offset=offset_inp,  title="x10 Long Liquidation")
-
 long25 = vwma(close, len_inp) * 0.966235
-plot(long25, color=#ff0000, offset=offset_inp, title="x25 Long Liquidation")
-
 long50 = vwma(close, len_inp) * 0.985294
-plot(long50, color=#b7b735, offset=offset_inp, title="x50 Long Liquidation")
-
 long100 = vwma(close, len_inp) * 0.995117
-plot(long100, color=#306bc9, offset=offset_inp, title="x100 Long Liquidation")
-
 short100 = vwma(close, len_inp) * 1.004882
-plot(short100, color=#306bc9, offset=offset_inp, title="x100 Short Liquidation")
-
 short50 = vwma(close, len_inp) * 1.015117
-plot(short50, color=#d8d83e, offset=offset_inp, title="x50 Short Liquidation")
-
 short25 = vwma(close, len_inp) * 1.036117
-plot(short25, color=#30c149, offset=offset_inp, title="x25 Short Liquidation")
-
 short10 = vwma(close, len_inp) * 1.104823
+
+//===Plot===
+plot(vwma, title="Midline", style=circles)
+plot(long10, color=#ff0000, offset=offset_inp,  title="x10 Long Liquidation")
+plot(long25, color=#ff0000, offset=offset_inp, title="x25 Long Liquidation")
+plot(long50, color=#b7b735, offset=offset_inp, title="x50 Long Liquidation")
+plot(long100, color=#306bc9, offset=offset_inp, title="x100 Long Liquidation")
+plot(short100, color=#306bc9, offset=offset_inp, title="x100 Short Liquidation")
+plot(short50, color=#d8d83e, offset=offset_inp, title="x50 Short Liquidation")
+plot(short25, color=#30c149, offset=offset_inp, title="x25 Short Liquidation")
 plot(short10, color=#30c149, offset=offset_inp, title="x10 Short Liquidation")
 
-// ===Hghlight Line touches===
 bcolor1 = (crossover(high, short50)) ? color(#d69c38, 80) : (crossunder(low, long50)) ? color(#beed53, 80) : na
 bcolor2 = (crossover(high, short25)) ? color(#d66c38, 70) : (crossunder(low, long25)) ? color(#39d65b, 70) : na
 bcolor3 = (crossover(high, short10)) ? color(#d64538, 50) : (crossunder(low, long10)) ? color(#34c152, 50) : na
+
 bgcolor(highlightTouch50 ? bcolor1 : na)
 bgcolor(highlightTouch25 ? bcolor2 : na)
 bgcolor(highlightTouch10 ? bcolor3 : na)

@@ -1,0 +1,37 @@
+//@version=3
+// @author Jaqobs
+// Moving averages based on VWMA and Bitmex's leverage liquidation multipliers
+
+study("OHL Levels", overlay=true)
+
+//==Input==
+ticker_id = input(defval="BITFINEX:BTCUSD", title="Symbol", type=symbol)
+
+//==Formula==
+//previous daily hlc
+pdh = security(ticker_id, "D", high)
+pdl = security(ticker_id, "D", low) 
+pdc = security(ticker_id, "D", close)
+
+//previous weekly hlc
+pwh = security(ticker_id, "W", high)
+pwl = security(ticker_id, "W", low) 
+pwc = security(ticker_id, "W", close)
+
+//previous monthly hlc
+pmh = security(ticker_id, "M", high)
+pml = security(ticker_id, "M", low)
+pmc = security(ticker_id, "M", close)
+
+//==Plot==
+plot(pdh, title="Daily High", style=circles, color=green)
+plot(pdl, title="Daily Low", style=circles, color=red)
+plot(pdc, title="Daily Close", style=circles, color=orange)
+
+plot(pwh, title="Weekly High", style=cross, color=teal)
+plot(pwl, title="Weekly Low", style=cross, color=teal)
+plot(pwc, title="Weekly close", style=cross, color=teal)
+
+plot(pmh, title="Monthly High", style=cross, color=purple)
+plot(pml, title="Monthly Low", style=cross, color=purple)
+plot(pmc, title="Monthly Close", style=cross, color=purple)
