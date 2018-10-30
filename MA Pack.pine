@@ -1,0 +1,19 @@
+//@version=3
+//@author Jaqobs
+//Group of widely used standard moving averages
+study("MA Pack", overlay=true)
+
+//===Input===
+inp_one = input(defval=20, title="EMA Length", type=integer)
+inp_two = input(defval=50, title="SMA1 Length", type=integer)
+inp_three = input(defval=200, title="SMA1 Length", type=integer)
+
+//===Indicators==
+one = ema(close, inp_one)
+two = sma(close, inp_two)
+three = sma(close, inp_three)
+
+//===Plot===
+plot(one, color = red, title="EMA")
+plot(two, color = green, title="SMA1")
+plot(three, color = yellow, title="SMA2")

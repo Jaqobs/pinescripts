@@ -1,0 +1,42 @@
+//@version=3
+//@author Jaqobs
+//Overlay of up to two Bollinger Bands based on different timeframes. Ticker
+//has to be chosen manually.
+
+study("Fixed TF BBands", overlay = true)
+
+//==Input==
+inp_sym = input(defval="BITFINEX:BTCUSD", title="Ticker", type=symbol)
+bb1_len = input(defval=20, title="BB-Length", type=integer)
+stdev_multiplier = input(defval=2, title="StDev Multiplier", type=integer)
+tf1_input = input(defval="D", title="BB 1 Timeframe", 
+    options=["15", "60", "240", "720", "D", "3D", "W", "M"])
+tf2_input = input(defval="W", title="BB 2 Timeframe", 
+    options=["15", "60", "240", "720", "D", "3D", "W", "M"])
+
+//==Formula==
+sma = sma(close, bb1_len)
+std = stdev_multiplier * stdev(close, bb1_len)
+
+//#Bollinger Bands 1
+tbb1 = security(inp_sym, tf1_input, sma + std)
+mbb1 = security(inp_sym, tf1_input, sma)
+bbb1 = security(inp_sym, tf1_input, sma - std)
+
+//#Bollinger Bands 2
+tbb2 = security(inp_sym, tf2_input, sma + std)
+mbb2 = security(inp_sym, tf2_input, sma)
+bbb2 = security(inp_sym, tf2_input, sma - std)
+
+//==Plot==
+//#Bollinger Bands 1
+b1t = plot(tbb1, title="Top BB1", color=white)
+b1m = plot(mbb1, title="Mid BB1", color=white)
+b1b = plot(bbb1, title="Bottom BB1", color=white)
+fill(b1t, b1b, title="BB 1",color = white)
+
+//#Bollinger Bands 2
+b2t = plot(tbb2, title="Top BB2", color=orange)
+b2m = plot(mbb2, title="Mid BB2", color=orange)
+b2b = plot(bbb2, title="Bottom BB2", color=orange)
+fill(b2t, b2b, title="BB 1",color = orange)
