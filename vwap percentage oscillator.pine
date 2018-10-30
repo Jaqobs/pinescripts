@@ -2,8 +2,12 @@
 // @author Jaqobs
 // Price distance to VWAP in %
 study("VWAP %")
+
+//==Input==
 src = input(defval=close, title="Source", type=source)
 
+//==Formula==
 vwap1 = src/vwap(src)
 
+//==Plot==
 plot(vwap1)

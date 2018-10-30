@@ -1,0 +1,14 @@
+//@version=3
+// @author Jaqobs
+//Time weighted moving average
+
+study("TWAP", overlay=true)
+
+//// ===Input===
+inp_len = input(defval=10, title="Length", type=integer)
+
+//// ===Formula===
+twap = sma(ohlc4, inp_len)
+
+//// ===Plot===   
+plot(twap)

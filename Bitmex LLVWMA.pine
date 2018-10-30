@@ -13,15 +13,17 @@ study("Bitmex LLVWMA", overlay=true)
 //h4: len = 7
 //h12: len = 3
 
-// ===Inputs===
+// ===Input===
 len_inp = input(defval=50, title="Length", type=integer)
 offset_inp = input(defval=0, title="Offset", type= integer)
-highlightTouch50=input(false, title="Highlight touch of x50 leverage lines?", type=bool)
+highlightTouch50=input(true, title="Highlight touch of x50 leverage lines?", type=bool)
 highlightTouch25=input(true, title="Highlight touch of x25 leverage lines?", type=bool)
-highlightTouch10=input(false, title="Highlight touch of x10 leverage lines?", type=bool)
+highlightTouch10=input(true, title="Highlight touch of x10 leverage lines?", type=bool)
 
 // ===MA's===
 vwma = vwma(close, len_inp)
+plot(vwma, title="Midline", style=circles)
+
 long10 = vwma(close, len_inp) * 0.913294
 plot(long10, color=#ff0000, offset=offset_inp,  title="x10 Long Liquidation")
 
@@ -47,9 +49,9 @@ short10 = vwma(close, len_inp) * 1.104823
 plot(short10, color=#30c149, offset=offset_inp, title="x10 Short Liquidation")
 
 // ===Hghlight Line touches===
-bcolor1 = (high > short50) ? color(orange, 30) : (low < long50) ? color(orange, 30) : na
-bcolor2 = (high > short25) ? color(red, 30) : (low < long25) ? color(green, 30) : na
-bcolor3 = (high > short10) ? color(red, 50) : (low < long10) ? color(green, 50) : na
+bcolor1 = (crossover(high, short50)) ? color(#d69c38, 80) : (crossunder(low, long50)) ? color(#beed53, 80) : na
+bcolor2 = (crossover(high, short25)) ? color(#d66c38, 70) : (crossunder(low, long25)) ? color(#39d65b, 70) : na
+bcolor3 = (crossover(high, short10)) ? color(#d64538, 50) : (crossunder(low, long10)) ? color(#34c152, 50) : na
 bgcolor(highlightTouch50 ? bcolor1 : na)
 bgcolor(highlightTouch25 ? bcolor2 : na)
 bgcolor(highlightTouch10 ? bcolor3 : na)
