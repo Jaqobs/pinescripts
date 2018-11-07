@@ -33,10 +33,10 @@ bbb2 = security(inp_sym, tf2_input, sma - std)
 b1t = plot(tbb1, title="Top BB1", color=white)
 b1m = plot(mbb1, title="Mid BB1", color=white)
 b1b = plot(bbb1, title="Bottom BB1", color=white)
-fill(b1t, b1b, title="BB 1",color = white)
+fill(b1t, b1b, title="BB1",color = white)
 
 //#Bollinger Bands 2
 b2t = plot(tbb2, title="Top BB2", color=orange)
 b2m = plot(mbb2, title="Mid BB2", color=orange)
 b2b = plot(bbb2, title="Bottom BB2", color=orange)
-fill(b2t, b2b, title="BB 1",color = orange)
+fill(b2t, b2b, title="BB2",color = orange)
