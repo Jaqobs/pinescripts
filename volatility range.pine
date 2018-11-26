@@ -1,0 +1,18 @@
+//@version=3
+// @author Jaqobs
+// Ploting the volatility over time
+
+study("Volatility Range")
+
+//==Input==
+inp_len = input(defval=7, title="Length")
+
+//==Formula==
+a = ema(high/low, inp_len)
+
+//==Plot==
+plot(a, color = a < 1.10 ? white : a < 1.15 ? orange : red)
+
+
+
+
